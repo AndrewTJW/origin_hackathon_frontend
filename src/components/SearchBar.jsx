@@ -10,12 +10,19 @@ const SearchBar = ({
   setSearchMode,
   setSearchText,
   uiMode,
-}) => (
-  <div
-    className={`flex w-full max-w-lg items-stretch rounded-full border border-gray-700 bg-gray-800 transition-all duration-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/50 relative ${
-      uiMode === "session" ? "max-w-4xl" : "max-w-lg"
-    }`}
-  >
+}) => {
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  return (
+    <div
+      className={`flex w-full max-w-lg items-stretch rounded-full border border-gray-700 bg-gray-800 transition-all duration-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/50 relative ${
+        uiMode === "session" ? "max-w-4xl" : "max-w-lg"
+      }`}
+    >
     <div className="flex items-center pl-3">
       <select
         aria-label="Search mode"
@@ -59,6 +66,7 @@ const SearchBar = ({
         onChange={(e) => setSearchText(e.target.value)} // just store text, no search
         onKeyDown={handleKeyDown} // search triggers only on Enter
         placeholder={`enter ${searchMode.toLowerCase()}...`}
+        onKeyPress={handleKeyPress}
         className="w-full rounded-r-full border-none bg-transparent py-3.5 pl-12 pr-24 text-lg text-white placeholder-gray-500 focus:outline-none focus:ring-0"
       />
     </div>
@@ -80,6 +88,7 @@ const SearchBar = ({
       )}
     </button>
   </div>
-);
+  );
+};
 
 export default SearchBar;

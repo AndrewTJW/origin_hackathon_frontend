@@ -102,7 +102,7 @@ export default function App() {
         return <StatisticsContent />;
       case "Heat Map":
       default:
-        return <HeatMapContent />;
+        return <HeatMapContent keyword={searchText} />;
     }
   };
 

@@ -23,7 +23,7 @@ const SessionViewContent = ({
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`py-3 px-4 font-medium text-lg transition-colors duration-200 ${
+              className={`py-3 px-4 font-medium text-lg transition-colors duration-200  ${
                 activeTab === tab
                   ? "text-blue-500 border-b-2 border-blue-500"
                   : "text-gray-400 hover:text-white"
@@ -35,7 +35,7 @@ const SessionViewContent = ({
         </nav>
       </div>
 
-      <div className="w-full rounded-xl bg-gray-800 border border-gray-700 shadow-lg mb-10">
+      <div className="w-full rounded-xl bg-gray-800 border border-gray-700 shadow-lg mb-10 overflow-hidden">
         {renderTabContent()}
       </div>
 

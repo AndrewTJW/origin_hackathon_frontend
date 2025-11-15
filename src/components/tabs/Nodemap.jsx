@@ -1,13 +1,14 @@
 import React from "react";
+import ForceGraph from "./ForceGraph";
+import NodeAPI from "../../api/NodeMapAPI";
 
-const NodeMapContent = () => (
-  <div className="p-8 text-center text-gray-400 h-[50vh] flex items-center justify-center">
-    <p className="text-2xl">
-      [Node Map Visualization Area]
-      <br />
-      This component will display connections and relational data.
-    </p>
-  </div>
-);
+
+function NodeMapContent() {
+  return (
+    <div className="p-8">
+      <NodeAPI />
+    </div>
+  );
+}
 
 export default NodeMapContent;
