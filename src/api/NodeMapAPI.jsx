@@ -95,30 +95,50 @@ export default function NodeMapAPI({ searchKeyword, searchSignal }) {
         return n.url && n.url.toLowerCase().includes(trimmed.toLowerCase());
       });
 
-      if (matches.length === 0) {
-        console.log("No nodes matched this keyword, nothing to branch.");
-        return;
-      }
-
       // Calculate next available ID
       const maxId = nodeList.reduce((max, n) => Math.max(max, n.id), 0);
       let nextId = maxId + 1;
       const newNodes = [];
 
-      // For each matching parent node, create branches
-      for (const parent of matches) {
-        const resultUrls = await searchUrlsFrom(trimmed, parent.url);
-        for (const url of resultUrls) {
-          newNodes.push({
-            id: nextId++,
-            url,
-            parentId: parent.id, // New node is a child of the matching parent
-          });
-        }
-      }
+      if (matches.length === 0) {
+        // No matches found → create a new root/parent node for this unrelated keyword
+        console.log("No nodes matched this keyword. Creating new root node for:", trimmed);
+        
+        const newRoot = {
+          id: nextId++,
+          url: trimmed, // New root node with the keyword as URL value
+          parentId: null, // This is a root node, no parent
+        };
 
-      // Append new nodes to existing list
-      setNodeList((prev) => [...prev, ...newNodes]);
+        // Fetch results from backend for this new root
+        const resultUrls = await searchUrlsFrom(trimmed, null);
+
+        // Create child nodes for the new root
+        const children = resultUrls.map((url) => ({
+          id: nextId++,
+          url,
+          parentId: newRoot.id, // All children have parentId = newRoot.id
+        }));
+
+        // Append new root and its children to the existing list
+        setNodeList((prev) => [...prev, newRoot, ...children]);
+      } else {
+        // Matches found → branch from existing nodes
+        // For each matching parent node, create branches
+        for (const parent of matches) {
+          const resultUrls = await searchUrlsFrom(trimmed, parent.url);
+          for (const url of resultUrls) {
+            newNodes.push({
+              id: nextId++,
+              url,
+              parentId: parent.id, // New node is a child of the matching parent
+            });
+          }
+        }
+
+        // Append new nodes to existing list
+        setNodeList((prev) => [...prev, ...newNodes]);
+      }
     }
   };
 
