@@ -41,20 +41,26 @@ export default function ForceGraph({ nodes, links }) {
       .append("g")
       .call(drag(simulation));
 
+    // Helper function to check if node represents a URL
+    const isUrl = (d) => {
+      const url = d.name || "";
+      return typeof url === "string" && (url.startsWith("http://") || url.startsWith("https://"));
+    };
+
     // Add circles
     const node = nodeGroup.append("circle")
-      .attr("r", d => d.id.startsWith("http") ? 10 : 15) // Larger circle for username
-      .attr("fill", d => d.id.startsWith("http") ? "steelblue" : "#ff6b6b")
+      .attr("r", d => isUrl(d) ? 10 : 15) // Smaller circle for URL nodes, larger for root/keyword nodes
+      .attr("fill", d => isUrl(d) ? "steelblue" : "#ff6b6b")
       .attr("stroke", "#fff")
       .attr("stroke-width", 2)
-      .style("cursor", d => d.id.startsWith("http") ? "pointer" : "default")
+      .style("cursor", d => isUrl(d) ? "pointer" : "default")
       .on("mouseenter", function(event, d) {
         // Highlight on hover
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("r", d => d.id.startsWith("http") ? 14 : 20)
-          .attr("fill", d => d.id.startsWith("http") ? "#4a90e2" : "#ff4757");
+          .attr("r", d => isUrl(d) ? 14 : 20)
+          .attr("fill", d => isUrl(d) ? "#4a90e2" : "#ff4757");
         
         // Show tooltip
         setTooltip({
@@ -69,22 +75,29 @@ export default function ForceGraph({ nodes, links }) {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("r", d => d.id.startsWith("http") ? 10 : 15)
-          .attr("fill", d => d.id.startsWith("http") ? "steelblue" : "#ff6b6b");
+          .attr("r", d => isUrl(d) ? 10 : 15)
+          .attr("fill", d => isUrl(d) ? "steelblue" : "#ff6b6b");
         
         // Hide tooltip
         setTooltip({ show: false, x: 0, y: 0, content: null });
       })
       .on("click", function(event, d) {
         // Open link in new tab if it's a URL
-        if (d.id.startsWith("http")) {
-          window.open(d.id, "_blank");
+        if (isUrl(d)) {
+          window.open(d.name, "_blank");
         }
       });
 
-    // Add labels for username nodes
+    // Add labels for nodes (show keyword for root nodes, truncate long URLs)
     nodeGroup.append("text")
-      .text(d => d.id.startsWith("http") ? "" : d.name)
+      .text(d => {
+        if (isUrl(d)) {
+          // For URL nodes, show nothing or truncate if needed
+          return "";
+        }
+        // For keyword/root nodes, show the name
+        return d.name || "";
+      })
       .attr("text-anchor", "middle")
       .attr("dy", 30)
       .attr("fill", "#fff")
@@ -124,12 +137,12 @@ export default function ForceGraph({ nodes, links }) {
   }, [nodes, links]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
       <svg
         ref={svgRef}
         width={800}
         height={500}
-        style={{ border: "1px solid #ccc" }}
+        style={{ border: "1px solid #ccc", borderRadius: "8px" }}
       ></svg>
       
       {tooltip.show && tooltip.content && (
@@ -151,17 +164,17 @@ export default function ForceGraph({ nodes, links }) {
           <div style={{ fontWeight: "bold", marginBottom: "6px", fontSize: "14px" }}>
             {tooltip.content.name}
           </div>
-          {tooltip.content.id.startsWith("http") && (
+          {tooltip.content.name && (tooltip.content.name.startsWith("http://") || tooltip.content.name.startsWith("https://")) && (
             <div style={{ fontSize: "12px", color: "#4a90e2", wordBreak: "break-all" }}>
-              🔗 {tooltip.content.id}
+              🔗 {tooltip.content.name}
               <div style={{ marginTop: "6px", fontSize: "11px", color: "#aaa" }}>
                 Click to open in new tab
               </div>
             </div>
           )}
-          {!tooltip.content.id.startsWith("http") && (
+          {tooltip.content.name && !tooltip.content.name.startsWith("http://") && !tooltip.content.name.startsWith("https://") && (
             <div style={{ fontSize: "12px", color: "#ffa502" }}>
-              👤 Username (Central Node)
+              🔍 Keyword/Root Node (ID: {tooltip.content.id})
             </div>
           )}
         </div>
