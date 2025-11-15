@@ -38,11 +38,11 @@ const LandingPageContent = ({
           </div>
         )}
 
-        {!isLoading && results.length === 0 && searchText.trim() !== "" && (
+        {/* {!isLoading && results.length === 0 && searchText.trim() !== "" && (
           <p className="text-center text-gray-500 py-4">
             No results found for "{searchText}". Try a different mode.
           </p>
-        )}
+        )} */}
       </div>
     </div>
 

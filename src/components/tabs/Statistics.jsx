@@ -73,7 +73,6 @@ const StatisticsContent = () => {
             <th style={thStyle}>ID</th>
             <th style={thStyle}>Source</th>
             <th style={thStyle}>Title</th>
-            <th style={thStyle}>Author</th>
             <th style={thStyle}>Link</th>
             <th style={thStyle}>Analyzer</th>
           </tr>
@@ -82,27 +81,17 @@ const StatisticsContent = () => {
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan="6" style={{ ...tdStyle, textAlign: "center", padding: "40px" }}>
+              <td colSpan="5" style={{ ...tdStyle, textAlign: "center", padding: "40px" }}>
                 Loading data...
               </td>
             </tr>
           ) : (
-            data.map((item) => (
+            data.map((item, index) => (
               <tr key={item.record_id} style={rowStyle}>
-                <td style={tdStyle}>{item.record_id}</td>
+                <td style={tdStyle}>{index + 1}</td>
                 <td style={tdStyle}>{item.source}</td>
                 <td style={{ ...tdStyle, maxWidth: "300px" }}>
                   {item.title}
-                </td>
-                <td style={tdStyle}>
-                  <a 
-                    href={item.link_to_author} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    style={{ color: "#80b3ff", textDecoration: "none" }}
-                  >
-                    {item.author}
-                  </a>
                 </td>
                 <td style={tdStyle}>
                   <a 

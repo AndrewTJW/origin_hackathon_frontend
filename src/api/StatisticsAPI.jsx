@@ -14,8 +14,26 @@ export default function StatisticsAPI() {
                 //const apiData = await res.json();
                 //setData(apiData);
 
-                // Using local stats.json for now - taking only top 10
-                setData(statsData.slice(0, 10));
+                // Group records by source to ensure diversity
+                const sourceGroups = {};
+                statsData.forEach(item => {
+                    if (!sourceGroups[item.source]) {
+                        sourceGroups[item.source] = [];
+                    }
+                    sourceGroups[item.source].push(item);
+                });
+
+                // Select 2 from each source type (TikTok, Instagram, Facebook, YouTube, Reddit)
+                const diverseData = [];
+                const sourcesToInclude = ['TikTok', 'Instagram', 'Facebook', 'YouTube', 'Reddit'];
+                
+                sourcesToInclude.forEach(source => {
+                    if (sourceGroups[source]) {
+                        diverseData.push(...sourceGroups[source].slice(0, 2));
+                    }
+                });
+                
+                setData(diverseData.slice(0, 10));
 
             } catch (err) {
                 console.error("Error fetching data:", err);
