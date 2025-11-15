@@ -1,14 +1,6 @@
-import { useState } from 'react'
+import React from "react";
+import Landing from "./pages/landing";
 
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      
-    </>
-  )
+export default function App() {
+  return <Landing />;
 }
-
-export default App

@@ -1,2 +1,19 @@
 @import "tailwindcss";
 
+/* Ensure JetBrains Mono is used across the app. */
+/* index.html already preloads the JetBrains Mono font from Google Fonts. */
+html,
+body,
+#root {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Provide a utility class for components that reference `font-JetBrains`. */
+.font-JetBrains {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Override Tailwind's `font-sans` utility so existing classes using it will still use JetBrains */
+.font-sans {
+  font-family: "JetBrains Mono", monospace;
+}
