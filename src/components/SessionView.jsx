@@ -40,14 +40,14 @@ const SessionViewContent = ({
       </div>
 
       <div className="flex space-x-6 justify-center w-full pb-8">
-        {activeTab === "Statistics" && (
+        {activeTab === "Node Map" && (
           <a
             href="#"
             onClick={(e) => e.preventDefault()}
             className="text-blue-400 hover:text-blue-300 transition-colors flex items-center space-x-2 font-medium"
           >
             <Download className="h-5 w-5" />
-            <span>Download Statistics File</span>
+            <span>Download Node Map</span>
           </a>
         )}
 

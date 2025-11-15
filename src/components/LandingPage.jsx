@@ -13,7 +13,7 @@ const LandingPageContent = ({
 }) => (
   <>
     {/* Title and Search */}
-    <div className="flex w-full max-w-4xl flex-col items-center justify-center pt-24 pb-16 text-center">
+    <div className="flex w-full max-w-4xl flex-col items-center justify-center pt-16 pb-8 text-center">
       <h1 className="mb-8 text-5xl font-JetBrains font-extrabold tracking-tight text-white md:text-7xl">
         Know Your <span className="text-blue-500">Origin</span>
       </h1>
