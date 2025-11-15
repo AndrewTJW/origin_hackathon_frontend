@@ -15,6 +15,8 @@ export default function App() {
   const [activeTab, setActiveTab] = React.useState("Heat Map");
   // NEW: used to trigger NodeMap searches
   const [nodeSearchSignal, setNodeSearchSignal] = React.useState(0);
+  // NEW: download function for Node Map
+  const [nodeMapDownloadFn, setNodeMapDownloadFn] = React.useState(null);
 
   const features = [
     {
@@ -106,6 +108,8 @@ export default function App() {
           <NodeMapContent
             searchKeyword={searchText}
             searchSignal={nodeSearchSignal}
+            searchMode={searchMode}
+            onDownloadReady={setNodeMapDownloadFn}
           />
         );
       case "Statistics":
@@ -146,6 +150,7 @@ export default function App() {
           setActiveTab={setActiveTab}
           startNewSession={startNewSession}
           renderTabContent={renderTabContent}
+          nodeMapDownloadFn={nodeMapDownloadFn}
         />
       )}
     </div>
