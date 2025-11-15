@@ -1,3 +1,5 @@
+import Search from "../components/SearchResultCard.jsx";
+
 const SearchBar = ({
   searchMode,
   searchText,
