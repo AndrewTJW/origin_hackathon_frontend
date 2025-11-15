@@ -1,12 +1,11 @@
 import React from "react";
-import ForceGraph from "./ForceGraph";
 import NodeAPI from "../../api/NodeMapAPI";
 
 
-function NodeMapContent() {
+function NodeMapContent({ searchKeyword, searchSignal }) {
   return (
     <div className="p-8">
-      <NodeAPI />
+      <NodeAPI searchKeyword={searchKeyword} searchSignal={searchSignal} />
     </div>
   );
 }

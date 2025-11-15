@@ -13,6 +13,8 @@ export default function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [results, setResults] = React.useState([]);
   const [activeTab, setActiveTab] = React.useState("Heat Map");
+  // NEW: used to trigger NodeMap searches
+  const [nodeSearchSignal, setNodeSearchSignal] = React.useState(0);
 
   const features = [
     {
@@ -81,6 +83,9 @@ export default function App() {
 
     if (mockData.length > 0) setUiMode("session");
     setIsLoading(false);
+
+    // 🔔 NEW: tell NodeMap "a search just happened"
+    setNodeSearchSignal((prev) => prev + 1);
   };
 
   const handleKeyDown = (e) => {
@@ -97,7 +102,12 @@ export default function App() {
   const renderTabContent = () => {
     switch (activeTab) {
       case "Node Map":
-        return <NodeMapContent />;
+        return (
+          <NodeMapContent
+            searchKeyword={searchText}
+            searchSignal={nodeSearchSignal}
+          />
+        );
       case "Statistics":
         return <StatisticsContent />;
       case "Heat Map":
@@ -105,6 +115,7 @@ export default function App() {
         return <HeatMapContent keyword={searchText} />;
     }
   };
+
 
   const searchBarProps = {
     searchMode,
