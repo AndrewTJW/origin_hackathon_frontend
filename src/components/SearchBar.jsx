@@ -1,4 +1,5 @@
-import Search from "../components/SearchResultCard.jsx";
+import React from "react";
+import { Search, Loader2 } from "lucide-react";
 
 const SearchBar = ({
   searchMode,
@@ -11,18 +12,17 @@ const SearchBar = ({
   uiMode,
 }) => (
   <div
-    className={`flex w-full max-w-lg items-stretch rounded-full border border-gray-700 bg-gray-800 transition-all duration-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/50 ${
+    className={`flex w-full max-w-lg items-stretch rounded-full border border-gray-700 bg-gray-800 transition-all duration-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/50 relative ${
       uiMode === "session" ? "max-w-4xl" : "max-w-lg"
     }`}
   >
-    {/* Dropdown */}
     <div className="flex items-center pl-3">
       <select
         aria-label="Search mode"
         value={searchMode}
         onChange={(e) => {
           setSearchMode(e.target.value);
-          setSearchText(""); // Clear search text on mode change
+          setSearchText("");
         }}
         className="appearance-none rounded-full border-none bg-transparent py-3.5 pl-3 pr-8 text-lg text-gray-300 hover:text-white focus:outline-none focus:ring-0"
         style={{
@@ -47,10 +47,8 @@ const SearchBar = ({
       </select>
     </div>
 
-    {/* Separator */}
     <div className="my-2 border-l border-gray-700"></div>
 
-    {/* Search Input */}
     <div className="relative flex-grow">
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
         <Search className="h-5 w-5 text-gray-500" />
@@ -58,14 +56,13 @@ const SearchBar = ({
       <input
         type="search"
         value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        onKeyDown={handleKeyDown}
+        onChange={(e) => setSearchText(e.target.value)} // just store text, no search
+        onKeyDown={handleKeyDown} // search triggers only on Enter
         placeholder={`enter ${searchMode.toLowerCase()}...`}
         className="w-full rounded-r-full border-none bg-transparent py-3.5 pl-12 pr-24 text-lg text-white placeholder-gray-500 focus:outline-none focus:ring-0"
       />
     </div>
 
-    {/* Search Button */}
     <button
       onClick={handleSearch}
       disabled={isLoading}

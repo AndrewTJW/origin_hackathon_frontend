@@ -1,14 +1,8 @@
-/**
- * Reusable FeatureCard component
- * @param {object} props - Component props
- * @param {React.ElementType} props.icon - The icon component (e.g., from lucide-react)
- * @param {string} props.title - The title of the feature
- * @param {string} props.description - The description of the feature
- */
+import React from "react";
+
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <div className="rounded-xl border border-gray-700 bg-gray-800 p-6 shadow-xl transition-transform duration-300 hover:scale-[1.02] hover:shadow-blue-500/20">
     <div className="flex items-center space-x-4">
-      {/* Icon is dynamically passed as a component (Icon) */}
       <div className="rounded-full bg-blue-500/20 p-3 text-blue-400">
         <Icon className="h-6 w-6" />
       </div>
