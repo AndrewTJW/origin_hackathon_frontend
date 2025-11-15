@@ -8,6 +8,7 @@ const SessionViewContent = ({
   setActiveTab,
   startNewSession,
   renderTabContent,
+  nodeMapDownloadFn,
 }) => {
   const tabNames = ["Heat Map", "Node Map", "Statistics"];
 
@@ -41,14 +42,23 @@ const SessionViewContent = ({
 
       <div className="flex space-x-6 justify-center w-full pb-8">
         {activeTab === "Node Map" && (
-          <a
-            href="#"
-            onClick={(e) => e.preventDefault()}
-            className="text-blue-400 hover:text-blue-300 transition-colors flex items-center space-x-2 font-medium"
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (nodeMapDownloadFn) {
+                nodeMapDownloadFn();
+              } else {
+                console.warn("Download function not available yet");
+                alert("Download function is initializing. Please try again in a moment.");
+              }
+            }}
+            className="text-blue-400 hover:text-blue-300 transition-colors flex items-center space-x-2 font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
           >
             <Download className="h-5 w-5" />
             <span>Download Node Map</span>
-          </a>
+          </button>
         )}
 
         <button

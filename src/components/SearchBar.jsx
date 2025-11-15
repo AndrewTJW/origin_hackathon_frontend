@@ -48,9 +48,6 @@ const SearchBar = ({
         <option value="Email" className="text-black">
           email
         </option>
-        <option value="Phone" className="text-black">
-          phone number
-        </option>
       </select>
     </div>
 
