@@ -1,0 +1,36 @@
+{
+    "username": "andrewtjw26",
+    "sites_found": [
+        {
+            "site": "Trello",
+            "url_main": "https://trello.com/",
+            "url_user": "https://trello.com/andrewtjw26",
+            "category": null,
+            "status": "Claimed",
+            "tags": [
+                "tasks"
+            ]
+        },
+        {
+            "site": "opensea.io",
+            "url_main": "https://opensea.io",
+            "url_user": "https://opensea.io/accounts/andrewtjw26",
+            "category": null,
+            "status": "Claimed",
+            "tags": [
+                "us"
+            ]
+        },
+        {
+            "site": "OP.GG [LeagueOfLegends] Japan",
+            "url_main": "https://www.op.gg/",
+            "url_user": "https://www.op.gg/summoners/search?q=andrewtjw26&region=jp",
+            "category": null,
+            "status": "Claimed",
+            "tags": [
+                "gaming",
+                "jp"
+            ]
+        }
+    ]
+}
