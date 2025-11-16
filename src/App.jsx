@@ -21,21 +21,21 @@ export default function App() {
   const features = [
     {
       icon: Zap,
-      title: "Blazing Fast Performance",
+      title: "Unified Intelligence Hub",
       description:
-        "Optimized for speed, our platform delivers a seamless and responsive user experience.",
+        "Centralized multi-source threat feeds into one dashboard.",
     },
     {
       icon: Shield,
-      title: "Ironclad Security",
+      title: "Exposure & Incident Detection",
       description:
-        "Keep your data safe with our state-of-the-art security protocols and encryption.",
+        "Identifies data leaks, breaches, and vulnerabilities linked to your digital identity.",
     },
     {
       icon: Rocket,
-      title: "Effortless Deployment",
+      title: "Smart Analysis & Prediction",
       description:
-        "Get up and running in minutes with our intuitive setup and one-click deployment.",
+        "Provides visual threat analytics(heatmaps, node maps) and used predicitve modelling.",
     },
   ];
 
